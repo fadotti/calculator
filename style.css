@@ -1,0 +1,41 @@
+body {
+    background: linear-gradient(90deg, black, rgb(9, 68, 97), black);
+}
+
+#calculator-container {
+    display: flex;
+}
+
+#calculator {
+    background-color: black;
+    width: 350px;
+    height: 600px;
+    margin: 50px auto;
+    border-width: 15px 6px;
+    border-style: solid;
+    border-top-color: rgb(43, 43, 43);
+    border-left-color: rgb(60, 60, 60);
+    border-bottom-color: rgb(10, 10, 10);
+    border-right-color: rgb(20, 20, 20);
+}
+
+.silver {
+    background-color: rgb(220, 220, 220);
+}
+
+#top-banner {
+    height: 100px;
+    display: flex;
+}
+
+#top-banner > div {
+    margin: auto;
+}
+
+#display {
+    height: 200px;
+}
+
+#keypad {
+    height: 300px;
+}
