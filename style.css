@@ -39,3 +39,19 @@ body {
 #keypad {
     height: 300px;
 }
+
+#casio {
+    font-family: 'Eurostile';
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#faux {
+    font-family: "Cormorant Upright", serif;
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-style: italic;
+    font-size: 50px;
+    vertical-align: 3%;
+    font-weight: 300;
+    margin-left: 10px;
+}
