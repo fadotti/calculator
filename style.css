@@ -26,6 +26,10 @@ body {
 #top-banner {
     height: 100px;
     display: flex;
+    border-style: solid;
+    border-width: 2px 10px 0px;
+    border-left-color: rgb(232, 232, 232);
+    border-right-color: rgb(215, 215, 215);
 }
 
 #top-banner > div {
@@ -34,10 +38,18 @@ body {
 
 #display {
     height: 200px;
+    border-style: solid;
+    border-width: 0px 10px;
+    border-left-color: rgb(20, 20, 20);
+    border-right-color: rgb(10, 10, 10);
 }
 
 #keypad {
     height: 300px;
+    border-style: solid;
+    border-width: 0px 10px 2px;
+    border-left-color: rgb(232, 232, 232);
+    border-right-color: rgb(215, 215, 215);
 }
 
 #casio {
