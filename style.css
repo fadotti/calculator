@@ -42,6 +42,12 @@ body {
     border-width: 0px 10px;
     border-left-color: rgb(20, 20, 20);
     border-right-color: rgb(10, 10, 10);
+    color: rgb(0, 255, 234);
+    font-family: 'Calculator', sans-serif;    
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #keypad {
@@ -66,4 +72,18 @@ body {
     vertical-align: 3%;
     font-weight: 300;
     margin-left: 10px;
+}
+
+.display-row {
+    margin-right: 10px;
+    align-self: flex-end;
+}
+
+#row-1 {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+#row-2 {
+    font-size: 50px;
 }
