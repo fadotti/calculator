@@ -11,7 +11,7 @@ buttons.forEach((button) => {
         const buttonValue = button.textContent;
         switch(true) {
             case Object.values(buttonType).findIndex((buttonClass) => buttonClass == 'number') > 0:
-                if(rowTwo.textContent.length < 21) {
+                if(rowTwo.textContent.length < maximumDisplayLength) {
                     rowTwo.textContent += buttonValue;
                 }
         }
