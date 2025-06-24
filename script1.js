@@ -1,19 +1,52 @@
 const rowOne = document.querySelector('#row-1');
 const rowTwo = document.querySelector('#row-2');
-const maximumDisplayLength = 21;
+const maximumRowOneLength = 34;
+const maximumRowTwoLength = 21;
 
 rowTwo.textContent = '';
 
 const buttons = document.querySelectorAll('.keypad-button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        const buttonType = button.classList;
-        const buttonValue = button.textContent;
         switch(true) {
-            case Object.values(buttonType).findIndex((buttonClass) => buttonClass == 'number') > 0:
-                if(rowTwo.textContent.length < maximumDisplayLength) {
-                    rowTwo.textContent += buttonValue;
+            case isButtonOfClass(button.classList, 'number'):
+                if(rowTwo.textContent.length < maximumRowTwoLength) {
+                    rowTwo.textContent += button.textContent;
                 }
+                break;
         }
     })
 })
+
+function isButtonOfClass(classList, targetClass) {
+    return Object.values(classList).findIndex((buttonClass) => buttonClass == targetClass) > 0
+}
+
+function add(a, b) {
+    return a + b
+}
+
+function subtract(a, b) {
+    return a - b
+}
+
+function multiply(a, b) {
+    return a*b
+}
+
+function divide(a, b) {
+    return (b != 0) ? a/b : 'error'
+}
+
+function operate(firstTerm, operator, secondTerm) {
+    switch(operator) {
+        case '+':
+            return add(firstTerm, secondTerm)
+        case '−':
+            return subtract(firstTerm, secondTerm)
+        case '×':
+            return multiply(firstTerm, secondTerm)
+        case '÷':
+            return divide(firstTerm, secondTerm)
+    }
+}
