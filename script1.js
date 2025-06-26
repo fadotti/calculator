@@ -2,6 +2,7 @@ const rowOne = document.querySelector('#row-1');
 const rowTwo = document.querySelector('#row-2');
 const maximumRowOneLength = 34;
 const maximumRowTwoLength = 21;
+const maximumFirstTermLength = maximumRowTwoLength - 4;
 
 rowTwo.textContent = '';
 
@@ -12,6 +13,11 @@ buttons.forEach((button) => {
             case isButtonOfClass(button.classList, 'number'):
                 if(rowTwo.textContent.length < maximumRowTwoLength) {
                     rowTwo.textContent += button.textContent;
+                }
+                break;
+            case isButtonOfClass(button.classList, 'operator'):
+                if(rowTwo.textContent.length < maximumFirstTermLength) {
+                    rowTwo.textContent += ` ${button.textContent} `;
                 }
                 break;
         }
