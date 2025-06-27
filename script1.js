@@ -2,8 +2,10 @@ const rowOne = document.querySelector('#row-1');
 const rowTwo = document.querySelector('#row-2');
 const maximumRowOneLength = 34;
 const maximumRowTwoLength = 21;
-const maximumFirstTermLength = maximumRowTwoLength - 4;
+const maximumFirstTermLength = maximumRowTwoLength - 4
+const maximumIntegerPartLength = 15; //Number.MAX_SAFE_INTEGER is a 16 digit number
 const operators = /[+−×÷]/;
+const errorMessage = 'Undefined, please clear the display';
 
 let answer;
 let firstTerm;
@@ -28,7 +30,18 @@ buttons.forEach((button) => {
                 break;
             case isButtonOfClass(button.classList, 'operator'):
                 if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0) {
-                    rowTwo.textContent += ` ${button.textContent} `;
+                    if(numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
+                        rowTwo.textContent += ` ${button.textContent} `;
+                    } else {
+                        firstTerm = +rowTwo.textContent.split(' ')[0]
+                        operator = rowTwo.textContent.split(' ')[1];
+                        secondTerm = +rowTwo.textContent.split(' ')[2];
+                        answer = operate(firstTerm, operator, secondTerm);
+                        
+                        answer = parseFloat(answer.toFixed(3));
+                        rowOne.textContent = answer.toLocaleString();
+                        rowTwo.textContent = `${answer} ${button.textContent} `;
+                    }
                 }
                 break;
             case isButtonOfClass(button.classList, 'equals'):
@@ -38,10 +51,13 @@ buttons.forEach((button) => {
                     secondTerm = +rowTwo.textContent.split(' ')[2];
                     answer = operate(firstTerm, operator, secondTerm);
 
+                    answer = parseFloat(answer.toFixed(3));
                     rowOne.textContent = answer.toLocaleString();
-                    firstTerm = answer;
                 }
                 break;
+            case isButtonOfClass(button.classList, 'all-clear'):
+                rowOne.textContent = '0';
+                rowTwo.textContent = '';
         }
     })
 })
@@ -63,7 +79,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return (b != 0) ? a / b : 'error'
+    return (b != 0) ? a / b : errorMessage
 }
 
 function operate(firstTerm, operator, secondTerm) {
@@ -84,4 +100,9 @@ function isDecimalAllowed(rowTwoText) {
     return !currentNumber.includes('.')
 }
 
-//DONT USE ANS, DISPLAY THE ANSWER EXPLICITLY AS THE FIRST TERM
+function numberOfSpacesInDisplay(rowTwoText) {
+    return [...rowTwoText.matchAll(/ /g)].length
+}
+
+//TO FIX NUMBER SIZE ISSUE, CHECK THAT THE INTEGER PART OF EACH TERM IS AT MOST
+//15 DIGITS LONG, AND THAT. YOU HAVE TO LOOK AT BOTH THE OPERATOR AND NUMBER INPUT CASES
