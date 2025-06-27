@@ -3,8 +3,14 @@ const rowTwo = document.querySelector('#row-2');
 const maximumRowOneLength = 34;
 const maximumRowTwoLength = 21;
 const maximumFirstTermLength = maximumRowTwoLength - 4;
+const operators = /[+−×÷]/;
 
-rowTwo.textContent = '';
+let answer;
+let firstTerm;
+let operator;
+let secondTerm;
+let operationCount = 0;
+
 
 const buttons = document.querySelectorAll('.keypad-button');
 buttons.forEach((button) => {
@@ -18,6 +24,17 @@ buttons.forEach((button) => {
             case isButtonOfClass(button.classList, 'operator'):
                 if(rowTwo.textContent.length < maximumFirstTermLength) {
                     rowTwo.textContent += ` ${button.textContent} `;
+                }
+                break;
+            case isButtonOfClass(button.classList, 'equals'):
+                if(rowTwo.textContent.trim().split(' ').length == 3) {
+                    firstTerm = +rowTwo.textContent.split(' ')[0]
+                    operator = rowTwo.textContent.split(' ')[1];
+                    secondTerm = +rowTwo.textContent.split(' ')[2];
+                    answer = operate(firstTerm, operator, secondTerm);
+
+                    rowOne.textContent = `${answer}`;
+                    firstTerm = answer;
                 }
                 break;
         }
@@ -37,11 +54,11 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
-    return a*b
+    return a * b
 }
 
 function divide(a, b) {
-    return (b != 0) ? a/b : 'error'
+    return (b != 0) ? a / b : 'error'
 }
 
 function operate(firstTerm, operator, secondTerm) {
