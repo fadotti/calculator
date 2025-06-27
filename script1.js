@@ -21,8 +21,13 @@ buttons.forEach((button) => {
                     rowTwo.textContent += button.textContent;
                 }
                 break;
+            case isButtonOfClass(button.classList, 'decimal'):
+                if(isDecimalAllowed(rowTwo.textContent)) {
+                    rowTwo.textContent += button.textContent;
+                }
+                break;
             case isButtonOfClass(button.classList, 'operator'):
-                if(rowTwo.textContent.length < maximumFirstTermLength) {
+                if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0) {
                     rowTwo.textContent += ` ${button.textContent} `;
                 }
                 break;
@@ -33,7 +38,7 @@ buttons.forEach((button) => {
                     secondTerm = +rowTwo.textContent.split(' ')[2];
                     answer = operate(firstTerm, operator, secondTerm);
 
-                    rowOne.textContent = `${answer}`;
+                    rowOne.textContent = answer.toLocaleString();
                     firstTerm = answer;
                 }
                 break;
@@ -73,3 +78,10 @@ function operate(firstTerm, operator, secondTerm) {
             return divide(firstTerm, secondTerm)
     }
 }
+
+function isDecimalAllowed(rowTwoText) {
+    currentNumber = rowTwoText.split(' ').at(-1);
+    return !currentNumber.includes('.')
+}
+
+//DONT USE ANS, DISPLAY THE ANSWER EXPLICITLY AS THE FIRST TERM
