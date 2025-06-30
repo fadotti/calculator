@@ -1,25 +1,22 @@
 const rowOne = document.querySelector('#row-1');
 const rowTwo = document.querySelector('#row-2');
-const maximumRowOneLength = 34;
 const maximumRowTwoLength = 21;
 const maximumFirstTermLength = maximumRowTwoLength - 4
-const maximumIntegerPartLength = 15; //Number.MAX_SAFE_INTEGER is a 16 digit number
-const operators = /[+−×÷]/;
+const maximumRowOneLength = maximumFirstTermLength;
+const maximumIntegerPartLength = 13; //Number.MAX_SAFE_INTEGER is a 16 digit number, we'll use 15 digits as the maximum integer part
 const errorMessage = 'Undefined, please clear the display';
 
 let answer;
 let firstTerm;
 let operator;
 let secondTerm;
-let operationCount = 0;
-
 
 const buttons = document.querySelectorAll('.keypad-button');
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
         switch(true) {
             case isButtonOfClass(button.classList, 'number'):
-                if(rowTwo.textContent.length < maximumRowTwoLength) {
+                if(rowTwo.textContent.length < maximumRowTwoLength && isIntegerPartBounded(rowTwo.textContent)) {
                     rowTwo.textContent += button.textContent;
                 }
                 break;
@@ -29,18 +26,21 @@ buttons.forEach((button) => {
                 }
                 break;
             case isButtonOfClass(button.classList, 'operator'):
-                if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0) {
-                    if(numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
-                        rowTwo.textContent += ` ${button.textContent} `;
-                    } else {
-                        firstTerm = +rowTwo.textContent.split(' ')[0]
-                        operator = rowTwo.textContent.split(' ')[1];
-                        secondTerm = +rowTwo.textContent.split(' ')[2];
-                        answer = operate(firstTerm, operator, secondTerm);
-                        
+                if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0 
+                    && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
+                    rowTwo.textContent += ` ${button.textContent} `;
+                } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2) {
+                    firstTerm = +rowTwo.textContent.split(' ')[0]
+                    operator = rowTwo.textContent.split(' ')[1];
+                    secondTerm = +rowTwo.textContent.split(' ')[2];
+                    answer = operate(firstTerm, operator, secondTerm);
+                    
+                    if(!isNaN(answer)) {
                         answer = parseFloat(answer.toFixed(3));
                         rowOne.textContent = answer.toLocaleString();
                         rowTwo.textContent = `${answer} ${button.textContent} `;
+                    } else {
+                        rowOne.textContent = answer;
                     }
                 }
                 break;
@@ -51,8 +51,16 @@ buttons.forEach((button) => {
                     secondTerm = +rowTwo.textContent.split(' ')[2];
                     answer = operate(firstTerm, operator, secondTerm);
 
-                    answer = parseFloat(answer.toFixed(3));
-                    rowOne.textContent = answer.toLocaleString();
+                    if(!isNaN(answer)) {
+                        if(isIntegerPartOfAnswerBounded(`${answer}`)) {
+                            answer = parseFloat(answer.toFixed(3));
+                            rowOne.textContent = answer.toLocaleString();
+                        } else {
+                            rowOne.textContent = (answer < 0) ? '-Inf' : 'Inf';
+                        }
+                    } else {
+                        rowOne.textContent = answer;
+                    }
                 }
                 break;
             case isButtonOfClass(button.classList, 'all-clear'):
@@ -97,12 +105,26 @@ function operate(firstTerm, operator, secondTerm) {
 
 function isDecimalAllowed(rowTwoText) {
     currentNumber = rowTwoText.split(' ').at(-1);
-    return !currentNumber.includes('.')
+    return (!currentNumber.includes('.')) && (rowTwoText.length < maximumRowTwoLength - 1)
 }
 
 function numberOfSpacesInDisplay(rowTwoText) {
     return [...rowTwoText.matchAll(/ /g)].length
 }
 
+function isIntegerPartBounded(rowTwoText) {
+    const integerPartOfCurrentNumber = rowTwoText.split(' ').at(-1).split('.')[0];
+    return integerPartOfCurrentNumber.length < maximumIntegerPartLength
+}
+
+function isIntegerPartOfAnswerBounded(answer) {
+    const integerPartOfCurrentNumber = answer.split(' ').at(-1).split('.')[0];
+    return integerPartOfCurrentNumber.length <= maximumIntegerPartLength
+}
+
 //TO FIX NUMBER SIZE ISSUE, CHECK THAT THE INTEGER PART OF EACH TERM IS AT MOST
 //15 DIGITS LONG, AND THAT. YOU HAVE TO LOOK AT BOTH THE OPERATOR AND NUMBER INPUT CASES
+// 370000021829.778 − 33.
+// 11111111111111112 ÷ 0
+
+// − -
