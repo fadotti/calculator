@@ -2,7 +2,6 @@ const rowOne = document.querySelector('#row-1');
 const rowTwo = document.querySelector('#row-2');
 const maximumRowTwoLength = 21;
 const maximumFirstTermLength = maximumRowTwoLength - 4
-const maximumRowOneLength = maximumFirstTermLength;
 const maximumIntegerPartLength = 13; //Number.MAX_SAFE_INTEGER is a 16 digit number, we'll use 15 digits as the maximum integer part
 const errorMessage = 'Undefined, please clear the display';
 
@@ -26,22 +25,59 @@ buttons.forEach((button) => {
                 }
                 break;
             case isButtonOfClass(button.classList, 'operator'):
-                if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0 
-                    && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
-                    rowTwo.textContent += ` ${button.textContent} `;
-                } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2) {
-                    firstTerm = +rowTwo.textContent.split(' ')[0]
-                    operator = rowTwo.textContent.split(' ')[1];
-                    secondTerm = +rowTwo.textContent.split(' ')[2];
-                    answer = operate(firstTerm, operator, secondTerm);
-                    
-                    if(!isNaN(answer)) {
-                        answer = parseFloat(answer.toFixed(3));
-                        rowOne.textContent = answer.toLocaleString();
-                        rowTwo.textContent = `${answer} ${button.textContent} `;
-                    } else {
-                        rowOne.textContent = answer;
+                switch(button.textContent) {
+                    case '−':
+                        if(rowTwo.textContent.length == 0) {
+                            rowTwo.textContent += '-';
+                        } else if(numberOfSpacesInDisplay(rowTwo.textContent) == 2 && numberOfDigitsInSecondTerm(rowTwo.textContent) == 0) {
+                            rowTwo.textContent += '-';
+                        } else if(!isSecondTermEqualTo('-', rowTwo.textContent)) {
+                            if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0 
+                                && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
+                                rowTwo.textContent += ` ${button.textContent} `;
+                            } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2) {
+                                firstTerm = +rowTwo.textContent.split(' ')[0]
+                                operator = rowTwo.textContent.split(' ')[1];
+                                secondTerm = +rowTwo.textContent.split(' ')[2];
+                                answer = operate(firstTerm, operator, secondTerm);
+                                
+                                if(!isNaN(answer)) {
+                                    if(isIntegerPartOfAnswerBounded(`${answer}`)) {
+                                        answer = parseFloat(answer.toFixed(3));
+                                        rowOne.textContent = answer.toLocaleString();
+                                        rowTwo.textContent = `${answer} ${button.textContent} `;
+                                    } else {
+                                        rowOne.textContent = (answer < 0) ? '-Inf' : 'Inf';
+                                    }
+                                } else {
+                                    rowOne.textContent = answer;
+                                }
+                            }                           
+                        }
+                        break;
+                default:
+                    if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0 
+                        && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
+                        rowTwo.textContent += ` ${button.textContent} `;
+                    } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2) {
+                        firstTerm = +rowTwo.textContent.split(' ')[0]
+                        operator = rowTwo.textContent.split(' ')[1];
+                        secondTerm = +rowTwo.textContent.split(' ')[2];
+                        answer = operate(firstTerm, operator, secondTerm);
+                        
+                        if(!isNaN(answer)) {
+                            if(isIntegerPartOfAnswerBounded(`${answer}`)) {
+                                answer = parseFloat(answer.toFixed(3));
+                                rowOne.textContent = answer.toLocaleString();
+                                rowTwo.textContent = `${answer} ${button.textContent} `;
+                            } else {
+                                rowOne.textContent = (answer < 0) ? '-Inf' : 'Inf';
+                            }
+                        } else {
+                            rowOne.textContent = answer;
+                        }
                     }
+                    break;
                 }
                 break;
             case isButtonOfClass(button.classList, 'equals'):
@@ -122,9 +158,10 @@ function isIntegerPartOfAnswerBounded(answer) {
     return integerPartOfCurrentNumber.length <= maximumIntegerPartLength
 }
 
-//TO FIX NUMBER SIZE ISSUE, CHECK THAT THE INTEGER PART OF EACH TERM IS AT MOST
-//15 DIGITS LONG, AND THAT. YOU HAVE TO LOOK AT BOTH THE OPERATOR AND NUMBER INPUT CASES
-// 370000021829.778 − 33.
-// 11111111111111112 ÷ 0
+function numberOfDigitsInSecondTerm(rowTwoText) {
+    return rowTwoText.split(' ').at(-1).length
+}
 
-// − -
+function isSecondTermEqualTo(symbol, rowTwoText) {
+    return symbol == rowTwoText.split(' ').at(-1)
+}
