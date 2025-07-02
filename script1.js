@@ -3,7 +3,6 @@ const rowTwo = document.querySelector('#row-2');
 const maximumRowTwoLength = 21;
 const maximumFirstTermLength = maximumRowTwoLength - 4
 const maximumIntegerPartLength = 13; //Number.MAX_SAFE_INTEGER is a 16 digit number, we'll use 15 digits as the maximum integer part
-const errorMessage = 'Undefined, please clear the display';
 
 let answer;
 let firstTerm;
@@ -55,29 +54,29 @@ buttons.forEach((button) => {
                             }                           
                         }
                         break;
-                default:
-                    if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0 
-                        && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
-                        rowTwo.textContent += ` ${button.textContent} `;
-                    } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2) {
-                        firstTerm = +rowTwo.textContent.split(' ')[0]
-                        operator = rowTwo.textContent.split(' ')[1];
-                        secondTerm = +rowTwo.textContent.split(' ')[2];
-                        answer = operate(firstTerm, operator, secondTerm);
-                        
-                        if(!isNaN(answer)) {
-                            if(isIntegerPartOfAnswerBounded(`${answer}`)) {
-                                answer = parseFloat(answer.toFixed(3));
-                                rowOne.textContent = answer.toLocaleString();
-                                rowTwo.textContent = `${answer} ${button.textContent} `;
+                    default:
+                        if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0 
+                            && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
+                            rowTwo.textContent += (isButtonTextEqualTo('EXP', button.textContent)) ? ' ^ ' : ` ${button.textContent} `;
+                        } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2) {
+                            firstTerm = +rowTwo.textContent.split(' ')[0]
+                            operator = rowTwo.textContent.split(' ')[1];
+                            secondTerm = +rowTwo.textContent.split(' ')[2];
+                            answer = operate(firstTerm, operator, secondTerm);
+                            
+                            if(!isNaN(answer)) {
+                                if(isIntegerPartOfAnswerBounded(`${answer}`)) {
+                                    answer = parseFloat(answer.toFixed(3));
+                                    rowOne.textContent = answer.toLocaleString();
+                                    rowTwo.textContent = (isButtonTextEqualTo('EXP', button.textContent)) ? `${answer} ^ ` : `${answer} ${button.textContent} `;
+                                } else {
+                                    rowOne.textContent = (answer < 0) ? '-Inf' : 'Inf';
+                                }
                             } else {
-                                rowOne.textContent = (answer < 0) ? '-Inf' : 'Inf';
+                                rowOne.textContent = answer;
                             }
-                        } else {
-                            rowOne.textContent = answer;
                         }
-                    }
-                    break;
+                        break;
                 }
                 break;
             case isButtonOfClass(button.classList, 'equals'):
@@ -102,6 +101,7 @@ buttons.forEach((button) => {
             case isButtonOfClass(button.classList, 'all-clear'):
                 rowOne.textContent = '0';
                 rowTwo.textContent = '';
+                break;
         }
     })
 })
@@ -123,7 +123,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return (b != 0) ? a / b : errorMessage
+    return (b != 0) ? a / b : 'Undefined, please clear the display'
+}
+
+function exponentiate(a, b) {
+    return a ** b
 }
 
 function operate(firstTerm, operator, secondTerm) {
@@ -136,6 +140,8 @@ function operate(firstTerm, operator, secondTerm) {
             return multiply(firstTerm, secondTerm)
         case '÷':
             return divide(firstTerm, secondTerm)
+        case '^':
+            return exponentiate(firstTerm, secondTerm)
     }
 }
 
@@ -164,4 +170,8 @@ function numberOfDigitsInSecondTerm(rowTwoText) {
 
 function isSecondTermEqualTo(symbol, rowTwoText) {
     return symbol == rowTwoText.split(' ').at(-1)
+}
+
+function isButtonTextEqualTo(symbol, buttonText) {
+    return symbol == buttonText
 }
