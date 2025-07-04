@@ -1,8 +1,10 @@
 # calculator
 
-![Casio fx-120](./casiofx120_resized_500h.jpg) ![Casio faux-120](./casiofaux120.png)
+![Casio fx-120](./casiofx120_resized_500h.jpg) ![Casio faux-120](./casiofaux120_resized.png)
 
 ---
+
+## How This Calculator Works
 
 This calculator has a top and a bottom row in its display. The top row shows the answer, and the bottom row shows the current operation. For any operation to take place, two terms and an operator must be present in the bottom row. If this conditionn is met, pressing the equals button will yield the answer in the top row, and pressing an operator will compute the result and use the result in the new calculation.
 
