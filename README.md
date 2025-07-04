@@ -1,6 +1,7 @@
 # calculator
 
-![Casio fx-120](./casiofx120_resized_tall.jpg) ![Casio faux-120](./casiofaux120.png)
+<!-- ![Casio fx-120](./casiofx120_resized_tall.jpg) ![Casio faux-120](./casiofaux120.png) -->
+<img src="./casiofx120_resized_tall.jpg" alt="Casio fx-120" height="566px"/> <img src="./casiofaux120.png" alt="Casio faux-120" height="566px"/>
 
 ---
 
