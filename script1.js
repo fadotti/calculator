@@ -2,7 +2,7 @@ const rowOne = document.querySelector('#row-1');
 const rowTwo = document.querySelector('#row-2');
 const maximumRowTwoLength = 21;
 const maximumFirstTermLength = maximumRowTwoLength - 4
-const maximumIntegerPartLength = 13; //Number.MAX_SAFE_INTEGER is a 16 digit number, we'll use 15 digits as the maximum integer part
+const maximumIntegerPartLength = 13;
 
 let answer;
 let firstTerm;
@@ -106,10 +106,6 @@ buttons.forEach((button) => {
     })
 })
 
-function isButtonOfClass(classList, targetClass) {
-    return Object.values(classList).findIndex((buttonClass) => buttonClass == targetClass) > 0
-}
-
 function add(a, b) {
     return a + b
 }
@@ -127,7 +123,7 @@ function divide(a, b) {
 }
 
 function exponentiate(a, b) {
-    return a ** b
+    return (!isNaN((a) ** (b)) && (a) ** (b) != Infinity && (a) ** (b) != -Infinity) ? (a) ** (b) : 'Undefined, please clear the display'
 }
 
 function operate(firstTerm, operator, secondTerm) {
@@ -143,6 +139,10 @@ function operate(firstTerm, operator, secondTerm) {
         case '^':
             return exponentiate(firstTerm, secondTerm)
     }
+}
+
+function isButtonOfClass(classList, targetClass) {
+    return Object.values(classList).findIndex((buttonClass) => buttonClass == targetClass) > 0
 }
 
 function isDecimalAllowed(rowTwoText) {
