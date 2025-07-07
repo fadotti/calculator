@@ -2,7 +2,7 @@
 
 <!-- ![Casio fx-120](./casiofx120_resized_500h.jpg) ![Casio faux-120](./casiofaux120_resized.png) -->
 
-![Casio fx-120](./casiofx120_resized_500h.jpg){style="display: block; margin: 0 0 0 auto"} ![Casio faux-120](./casiofaux120_resized.png){style="display: block; margin: 0 auto 0 0"} 
+![Casio fx-120](./casiofx120_resized_500h.jpg#center) ![Casio faux-120](./casiofaux120_resized.png#center)
 
 ---
 
