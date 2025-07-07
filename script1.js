@@ -102,6 +102,11 @@ buttons.forEach((button) => {
                 rowOne.textContent = '0';
                 rowTwo.textContent = '';
                 break;
+            case isButtonOfClass(button.classList, 'clear'):
+                if(numberOfSpacesInDisplay(rowTwo.textContent) == 2 && numberOfDigitsInSecondTerm(rowTwo.textContent) != 0) {
+                    rowTwo.textContent = removeSecondTerm(rowTwo.textContent);
+                }
+                break;
         }
     })
 })
@@ -174,4 +179,10 @@ function isSecondTermEqualTo(symbol, rowTwoText) {
 
 function isButtonTextEqualTo(symbol, buttonText) {
     return symbol == buttonText
+}
+
+function removeSecondTerm(rowTwoText) {
+    let splitContents = rowTwoText.split(' ');
+    splitContents.pop();
+    return splitContents.join(' ') + ' '
 }
