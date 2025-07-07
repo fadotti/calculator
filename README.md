@@ -2,6 +2,10 @@
 
 <!-- ![Casio fx-120](./casiofx120_resized_500h.jpg) ![Casio faux-120](./casiofaux120_resized.png) -->
 
+<div align='center'>
+    <img src = ./casiofx120_resized_500h.jpg> <img src = ./casiofaux120_resized.png>
+</div>
+
 ![Casio fx-120](./casiofx120_resized_500h.jpg#center) ![Casio faux-120](./casiofaux120_resized.png#center)
 
 ---
