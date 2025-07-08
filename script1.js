@@ -137,6 +137,7 @@ addEventListener('keydown', (event) => {
                 break;
             case 'Enter':
                 if(button.textContent == "=") {
+                    event.preventDefault();
                     button.click();
                 }
                 break;
@@ -165,7 +166,7 @@ function divide(a, b) {
 }
 
 function exponentiate(a, b) {
-    return (!isNaN((a) ** (b)) && (a) ** (b) != Infinity && (a) ** (b) != -Infinity) ? (a) ** (b) : 'Undefined, please clear the display'
+    return (!isNaN((a) ** (b))) ? (a) ** (b) : 'Undefined, please clear the display'
 }
 
 function operate(firstTerm, operator, secondTerm) {
@@ -203,7 +204,7 @@ function isIntegerPartBounded(rowTwoText) {
 
 function isIntegerPartOfAnswerBounded(answer) {
     const integerPartOfCurrentNumber = answer.split(' ').at(-1).split('.')[0];
-    return integerPartOfCurrentNumber.length <= maximumIntegerPartLength && answer < 9999999999999 && answer > -999999999999
+    return integerPartOfCurrentNumber.length <= maximumIntegerPartLength && answer < 10000000000000 && answer > -1000000000000
 }
 
 function numberOfDigitsInSecondTerm(rowTwoText) {
