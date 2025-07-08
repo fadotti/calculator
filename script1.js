@@ -111,6 +111,43 @@ buttons.forEach((button) => {
     })
 })
 
+addEventListener('keydown', (event) => {
+    console.log(event.key);
+    buttons.forEach((button) => {
+        switch(event.key) {
+            case '^':
+                if(button.textContent == "EXP") {
+                    button.click();
+                }
+                break;
+            case '*':
+                if(button.textContent == "×") {
+                    button.click();
+                }
+                break;
+            case '/':
+                if(button.textContent == "÷") {
+                    button.click();
+                }
+                break;
+            case '-':
+                if(button.textContent == "−") {
+                    button.click();
+                }
+                break;
+            case 'Enter':
+                if(button.textContent == "=") {
+                    button.click();
+                }
+                break;
+            default:
+                if(event.key == button.textContent) {
+                    button.click();
+                }
+        }
+    })
+})
+
 function add(a, b) {
     return a + b
 }
@@ -161,12 +198,12 @@ function numberOfSpacesInDisplay(rowTwoText) {
 
 function isIntegerPartBounded(rowTwoText) {
     const integerPartOfCurrentNumber = rowTwoText.split(' ').at(-1).split('.')[0];
-    return integerPartOfCurrentNumber.length < maximumIntegerPartLength
+    return integerPartOfCurrentNumber.length < maximumIntegerPartLength 
 }
 
 function isIntegerPartOfAnswerBounded(answer) {
     const integerPartOfCurrentNumber = answer.split(' ').at(-1).split('.')[0];
-    return integerPartOfCurrentNumber.length <= maximumIntegerPartLength
+    return integerPartOfCurrentNumber.length <= maximumIntegerPartLength && answer < 9999999999999 && answer > -999999999999
 }
 
 function numberOfDigitsInSecondTerm(rowTwoText) {
