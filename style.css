@@ -4,6 +4,7 @@ body {
 
 #calculator-container {
     display: flex;
+    flex-direction: column;
 }
 
 #calculator {
@@ -69,7 +70,6 @@ body {
 
 #faux {
     font-family: "Cormorant Upright", serif;
-    /* font-family: 'Times New Roman', Times, serif; */
     font-style: italic;
     font-size: 50px;
     vertical-align: 3%;
