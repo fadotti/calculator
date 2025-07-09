@@ -124,3 +124,23 @@ body {
     color: white;
 }
 
+#link-container {
+    display: flex;
+    justify-content: center;
+}
+
+#github-link {
+    margin-top: -40px;
+    color: white;
+    font-family: 'Calculator', sans-serif;
+}
+
+a:link {
+  color: white;
+  background-color: transparent;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+}

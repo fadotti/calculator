@@ -29,3 +29,5 @@ Keyboard support has been added, the following table contains character inputs t
 | EXP             | ^                  |
 | Equals          | =                  |
 | Equals          | Enter              |
+
+Feel free to visit the calculator by following [this link.](https://fadotti.github.io/calculator/)

@@ -141,6 +141,11 @@ addEventListener('keydown', (event) => {
                     button.click();
                 }
                 break;
+            case 'A':
+                if(button.textContent == "AC") {
+                    button.click();
+                }
+                break;
             default:
                 if(event.key == button.textContent) {
                     button.click();
