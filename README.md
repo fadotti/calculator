@@ -31,3 +31,5 @@ Keyboard support has been added, the following table contains character inputs t
 | Equals          | Enter              |
 
 Feel free to use the calculator by following [this link.](https://fadotti.github.io/calculator/)
+
+Note: In the CASIO fx-120, the EXP button is used to input a number in scientific notation. Pressing the keys 1, 2, 3, EXP, 5 and then the equals button will yield the number 123 * (10^5). In the CASIO faux-120, however, the EXP button is the regular exponentiation operator (^).
