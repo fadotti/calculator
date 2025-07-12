@@ -31,12 +31,12 @@ buttons.forEach((button) => {
                             rowTwo.textContent += '-';
                         } else if(numberOfSpacesInDisplay(rowTwo.textContent) == 2 && numberOfDigitsInSecondTerm(rowTwo.textContent) == 0) {
                             rowTwo.textContent += '-';
-                        } else if(!isSecondTermEqualTo('-', rowTwo.textContent)) {
+                        } else if(!isCurrentTermEqualTo('-', rowTwo.textContent)) {
                             if(rowTwo.textContent.length <= maximumFirstTermLength && rowTwo.textContent.length > 0 
                             && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
                                 rowTwo.textContent += ` ${button.textContent} `;
                             } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2 &&
-                            numberOfDigitsInSecondTerm(rowTwo.textContent) != 0 && !isSecondTermEqualTo('-', rowTwo.textContent)) {
+                            numberOfDigitsInSecondTerm(rowTwo.textContent) != 0 && !isCurrentTermEqualTo('-', rowTwo.textContent)) {
                                 firstTerm = +rowTwo.textContent.split(' ')[0]
                                 operator = rowTwo.textContent.split(' ')[1];
                                 secondTerm = +rowTwo.textContent.split(' ')[2];
@@ -58,10 +58,10 @@ buttons.forEach((button) => {
                         break;
                     default:
                         if(rowTwo.textContent.length <= maximumFirstTermLength && rowTwo.textContent.length > 0 
-                        && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
+                        && numberOfSpacesInDisplay(rowTwo.textContent) < 2 && !isCurrentTermEqualTo('-', rowTwo.textContent)) {
                             rowTwo.textContent += (isButtonTextEqualTo('EXP', button.textContent)) ? ' ^ ' : ` ${button.textContent} `;
                         } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2 &&
-                        numberOfDigitsInSecondTerm(rowTwo.textContent) != 0 && !isSecondTermEqualTo('-', rowTwo.textContent)) {
+                        numberOfDigitsInSecondTerm(rowTwo.textContent) != 0 && !isCurrentTermEqualTo('-', rowTwo.textContent)) {
                             firstTerm = +rowTwo.textContent.split(' ')[0]
                             operator = rowTwo.textContent.split(' ')[1];
                             secondTerm = +rowTwo.textContent.split(' ')[2];
@@ -83,7 +83,7 @@ buttons.forEach((button) => {
                 }
                 break;
             case isButtonOfClass(button.classList, 'equals'):
-                if(rowTwo.textContent.trim().split(' ').length == 3 && !isSecondTermEqualTo('-', rowTwo.textContent)) {
+                if(rowTwo.textContent.trim().split(' ').length == 3 && !isCurrentTermEqualTo('-', rowTwo.textContent)) {
                     firstTerm = +rowTwo.textContent.split(' ')[0]
                     operator = rowTwo.textContent.split(' ')[1];
                     secondTerm = +rowTwo.textContent.split(' ')[2];
@@ -223,7 +223,7 @@ function numberOfDigitsInSecondTerm(rowTwoText) {
     return rowTwoText.split(' ').at(-1).length
 }
 
-function isSecondTermEqualTo(symbol, rowTwoText) {
+function isCurrentTermEqualTo(symbol, rowTwoText) {
     return symbol == rowTwoText.split(' ').at(-1)
 }
 
