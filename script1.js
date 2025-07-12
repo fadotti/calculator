@@ -14,7 +14,8 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
         switch(true) {
             case isButtonOfClass(button.classList, 'number'):
-                if(rowTwo.textContent.length < maximumRowTwoLength && isIntegerPartBounded(rowTwo.textContent)) {
+                if(rowTwo.textContent.length < maximumRowTwoLength && lengthOfCurrentNumber(rowTwo.textContent) < maximumFirstTermLength &&
+                (isIntegerPartBounded(rowTwo.textContent) || !isDecimalAllowed(rowTwo.textContent))) {
                     rowTwo.textContent += button.textContent;
                 }
                 break;
@@ -31,10 +32,11 @@ buttons.forEach((button) => {
                         } else if(numberOfSpacesInDisplay(rowTwo.textContent) == 2 && numberOfDigitsInSecondTerm(rowTwo.textContent) == 0) {
                             rowTwo.textContent += '-';
                         } else if(!isSecondTermEqualTo('-', rowTwo.textContent)) {
-                            if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0 
-                                && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
+                            if(rowTwo.textContent.length <= maximumFirstTermLength && rowTwo.textContent.length > 0 
+                            && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
                                 rowTwo.textContent += ` ${button.textContent} `;
-                            } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2) {
+                            } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2 &&
+                            numberOfDigitsInSecondTerm(rowTwo.textContent) != 0 && !isSecondTermEqualTo('-', rowTwo.textContent)) {
                                 firstTerm = +rowTwo.textContent.split(' ')[0]
                                 operator = rowTwo.textContent.split(' ')[1];
                                 secondTerm = +rowTwo.textContent.split(' ')[2];
@@ -55,10 +57,11 @@ buttons.forEach((button) => {
                         }
                         break;
                     default:
-                        if(rowTwo.textContent.length < maximumFirstTermLength && rowTwo.textContent.length > 0 
-                            && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
+                        if(rowTwo.textContent.length <= maximumFirstTermLength && rowTwo.textContent.length > 0 
+                        && numberOfSpacesInDisplay(rowTwo.textContent) < 2) {
                             rowTwo.textContent += (isButtonTextEqualTo('EXP', button.textContent)) ? ' ^ ' : ` ${button.textContent} `;
-                        } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2) {
+                        } else if(rowTwo.textContent.length > 0 && numberOfSpacesInDisplay(rowTwo.textContent) == 2 &&
+                        numberOfDigitsInSecondTerm(rowTwo.textContent) != 0 && !isSecondTermEqualTo('-', rowTwo.textContent)) {
                             firstTerm = +rowTwo.textContent.split(' ')[0]
                             operator = rowTwo.textContent.split(' ')[1];
                             secondTerm = +rowTwo.textContent.split(' ')[2];
@@ -80,7 +83,7 @@ buttons.forEach((button) => {
                 }
                 break;
             case isButtonOfClass(button.classList, 'equals'):
-                if(rowTwo.textContent.trim().split(' ').length == 3) {
+                if(rowTwo.textContent.trim().split(' ').length == 3 && !isSecondTermEqualTo('-', rowTwo.textContent)) {
                     firstTerm = +rowTwo.textContent.split(' ')[0]
                     operator = rowTwo.textContent.split(' ')[1];
                     secondTerm = +rowTwo.textContent.split(' ')[2];
@@ -205,6 +208,10 @@ function numberOfSpacesInDisplay(rowTwoText) {
 function isIntegerPartBounded(rowTwoText) {
     const integerPartOfCurrentNumber = rowTwoText.split(' ').at(-1).split('.')[0];
     return integerPartOfCurrentNumber.length < maximumIntegerPartLength 
+}
+
+function lengthOfCurrentNumber(rowTwoText) {
+    return rowTwoText.split(' ').at(-1).length
 }
 
 function isIntegerPartOfAnswerBounded(answer) {
