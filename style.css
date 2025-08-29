@@ -1,3 +1,39 @@
+@font-face {
+    font-family: 'Eurostile';
+    src: url('fonts/EurostileRegular.eot');
+    src: url('fonts/EurostileRegular.eot?#iefix') format('embedded-opentype'),
+        url('fonts/EurostileRegular.woff2') format('woff2'),
+        url('fonts/EurostileRegular.woff') format('woff'),
+        url('fonts/EurostileRegular.svg#EurostileRegular') format('svg'),
+        url('fonts/EurostileRegular.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Calculator';
+    src: url('fonts/Calculator.eot');
+    src: url('fonts/Calculator.eot?#iefix') format('embedded-opentype'),
+        url('fonts/Calculator.woff2') format('woff2'),
+        url('fonts/Calculator.woff') format('woff'),
+        url('fonts/Calculator.svg#Calculator') format('svg'),
+        url('fonts/Calculator.ttf') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* cormorant-upright-300 - latin */
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Cormorant Upright';
+    font-style: normal;
+    font-weight: 300;
+    src: url('./fonts/cormorant-upright-v18-latin-300.woff2') format('woff2'), /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+         url('./fonts/cormorant-upright-v18-latin-300.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
+}
+
 body {
     background: linear-gradient(90deg, black, rgb(9, 68, 97), black);
 }
