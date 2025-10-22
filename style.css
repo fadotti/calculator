@@ -144,3 +144,8 @@ a:hover {
   color: red;
   background-color: transparent;
 }
+
+a:visited {
+  color: white;
+  background-color: transparent;
+}
